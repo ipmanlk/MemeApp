@@ -27,7 +27,11 @@ function getMemes(id) {
     }
 
     request(path, "GET", {}).then(function (res) {
-        if (lastMemeId !== 1) lastMemeId = res[res.length - 1].id;
+        if (res.length > 0) {
+            if (lastMemeId !== 1) lastMemeId = res[res.length - 1].id;
+        } else {
+            lastMemeId = 1;
+        }
         appendToMemeList(res);
     }).catch(function (err) {
         console.log(err);
@@ -46,7 +50,7 @@ function appendToMemeList(memes) {
                     <ons-icon icon="md-thumb-up"></ons-icon>
                     Like
                 </button>
-                <button onclick="viewMeme('${meme.id}')" class="button button--outline">
+                <button onclick="viewMeme('${meme.url}')" class="button button--outline">
                     <ons-icon icon="md-open-in-new"></ons-icon> View
                 </button>
                 <span style="float: right">
@@ -105,8 +109,8 @@ function reportMeme(id) {
     toastToggle("Meme Reported!", 500);
 }
 
-function viewMeme(id) {
-    toastToggle("Meme Viewed!", 500);
+function viewMeme(url) {
+    window.open(url, "_blank");
 }
 
 function request(path = "", method, data) {
