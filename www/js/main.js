@@ -111,7 +111,7 @@ function viewMeme(id) {
 
 function request(path = "", method, data) {
     loadMore = false;
-    var API = "http://107.173.126.17:3001/api";
+    var API = "http://s1.navinda.xyz:3001/api";
 
     return new Promise((resolve, reject) => {
         let settings = {
