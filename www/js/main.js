@@ -76,7 +76,7 @@ function refresh() {
 function initMemeListOnScroll() {
     $('.page__content').on('scroll', function () {
         var isBottom = ($(this).scrollTop() + $(this).innerHeight() + 100 >= $(this)[0].scrollHeight);
-        if (isBottom && currentPage == "memeList" && loadMore) {
+        if (isBottom && currentPage == "memeList" && loadMore && lastMemeId !== 1) {
             getMemes(lastMemeId);
         }
     });
@@ -112,6 +112,7 @@ function viewMeme(id) {
 function request(path = "", method, data) {
     loadMore = false;
     var API = "http://s1.navinda.xyz:3001/api";
+    toastToggle("Getting Memes....", null);
 
     return new Promise((resolve, reject) => {
         let settings = {
@@ -120,8 +121,6 @@ function request(path = "", method, data) {
             data: data,
             dataType: "json"
         };
-
-        toastToggle("Getting Memes....", null);
 
         $.ajax(settings).done(function (res) {
             if (res.error) {
