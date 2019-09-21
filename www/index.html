@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="./lib/css/onsenui-core.min.css" />
+    <link id="theme" rel="stylesheet" href="./lib/css/onsen-css-components.min.css" />
+    <link rel="stylesheet" href="./lib/css/material-design-iconic-font/css/material-design-iconic-font.min.css" />
+    <script src="cordova.js"></script>
+    <script src="./lib/js/jquery.min.js"></script>
+    <script src="./lib/js/onsenui.min.js"></script>
+    <title>MemeApp</title>
+</head>
+
+<body>
+    <ons-splitter>
+        <ons-splitter-side id="menu" side="left" width="220px" swipe-target-width="70px" collapse swipeable>
+            <ons-page>
+                <img src="./img/cover.png" style="width:100%" />
+                <ons-list>
+                    <ons-list-item onclick="getMemes(null); menu.close();" tappable>
+                        New Memes
+                    </ons-list-item>
+                    <ons-list-item onclick="getBestMemes()" tappable>
+                        Best Memes
+                    </ons-list-item>
+                </ons-list>
+            </ons-page>
+        </ons-splitter-side>
+        <ons-splitter-content id="content" page="main"></ons-splitter-content>
+    </ons-splitter>
+
+    <template id="main">
+        <ons-page>
+            <ons-toolbar>
+                <div class="left">
+                    <ons-toolbar-button onclick="fn.open()" id="toolbar-menu-toggler">
+                        <ons-icon icon="md-menu"></ons-icon>
+                    </ons-toolbar-button>
+                </div>
+
+                <div class="center">
+                    <span id="toolbarTitle">MemeApp</span>
+                </div>
+
+                <div class="right">
+                    <ons-toolbar-button onclick="switchTheme()">
+                        <ons-icon icon="md-invert-colors"></ons-icon>
+                    </ons-toolbar-button>
+                    <ons-toolbar-button onclick="refresh()">
+                        <ons-icon icon="md-refresh"></ons-icon>
+                    </ons-toolbar-button>
+                </div>
+            </ons-toolbar>
+            <!-- toolbar end -->
+
+            <div id="memes">
+                <ons-list id="memeList"> </ons-list>
+            </div>
+
+            <ons-toast id="outputToast" animation="ascend">
+                <span id="outputToastMsg"></span>
+            </ons-toast>
+        </ons-page>
+    </template>
+
+    <script src="./js/onsen.js"></script>
+    <script src="./js/navigate.js"></script>
+    <script src="./js/main.js"></script>
+    <script src="./js/settings.js"></script>
+</body>
+
+</html>
