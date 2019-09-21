@@ -121,6 +121,8 @@ function request(path = "", method, data) {
             dataType: "json"
         };
 
+        toastToggle("Getting Memes....", null);
+
         $.ajax(settings).done(function (res) {
             if (res.error) {
                 reject(res);
@@ -128,6 +130,7 @@ function request(path = "", method, data) {
                 resolve(res);
             }
             loadMore = true;
+            toastToggle(null, null);
         });
     });
 }
