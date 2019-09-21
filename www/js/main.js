@@ -41,7 +41,7 @@ function appendToMemeList(memes) {
             `
             <ons-card>
             <img src="${meme.url}" style="width: 100%">
-            <div class="content">
+            <div class="content" style="margin-top:10px;">
                 <button onclick="likeMeme('${meme.id}')" class="button button--outline">
                     <ons-icon icon="md-thumb-up"></ons-icon>
                     Like
