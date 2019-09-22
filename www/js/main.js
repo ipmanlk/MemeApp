@@ -1,3 +1,4 @@
+var SERVER = "http://s1.navinda.xyz:3001";
 var currentPage = "memeList";
 var lastMemeId;
 var loadMore = false;
@@ -44,13 +45,13 @@ function appendToMemeList(memes) {
         $("#memeList").append(
             `
             <ons-card>
-            <img src="${meme.url}" style="width: 100%">
+            <img src="${SERVER}/meme/${meme.img}" style="width: 100%">
             <div class="content" style="margin-top:10px;">
                 <button onclick="likeMeme('${meme.id}')" class="button button--outline">
                     <ons-icon icon="md-thumb-up"></ons-icon>
                     Like
                 </button>
-                <button onclick="viewMeme('${meme.url}')" class="button button--outline">
+                <button onclick="viewMeme('${SERVER}/meme/${meme.img}')" class="button button--outline">
                     <ons-icon icon="md-open-in-new"></ons-icon> View
                 </button>
                 <span style="float: right">
@@ -115,7 +116,7 @@ function viewMeme(url) {
 
 function request(path = "", method, data) {
     loadMore = false;
-    var API = "http://s1.navinda.xyz:3001/api";
+    var API = SERVER + "/api";
     toastToggle("Getting Memes....", null);
 
     return new Promise((resolve, reject) => {
