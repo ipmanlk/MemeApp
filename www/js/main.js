@@ -27,15 +27,18 @@ function getMemes(id) {
         $("#memeList").empty();
     }
 
+    toastToggle("Getting Memes....", null);
     request(path, "GET", {}).then(function (res) {
         if (res.length > 0) {
             if (lastMemeId !== 1) lastMemeId = res[res.length - 1].id;
         } else {
             lastMemeId = 1;
         }
+        toastToggle(null, null);
         appendToMemeList(res);
     }).catch(function (err) {
         console.log(err);
+        toastToggle(null, null);
     })
 }
 
@@ -117,7 +120,6 @@ function viewMeme(url) {
 function request(path = "", method, data) {
     loadMore = false;
     var API = SERVER + "/api";
-    toastToggle("Getting Memes....", null);
 
     return new Promise((resolve, reject) => {
         let settings = {
@@ -134,7 +136,6 @@ function request(path = "", method, data) {
                 resolve(res);
             }
             loadMore = true;
-            toastToggle(null, null);
         });
     });
 }
