@@ -64,6 +64,9 @@ function appendToMemeList(memes) {
                 </button>
 
                 <span style="float: right">
+                    <button onclick="downloadMeme('${SERVER}/meme/${meme.img}')" class="button button--outline">
+                        <ons-icon icon="md-cloud-download"></ons-icon> 
+                    </button>              
                     <button onclick="viewMeme('${SERVER}/meme/${meme.img}')" class="button button--outline">
                         <ons-icon icon="md-open-in-new"></ons-icon> 
                     </button>
@@ -146,6 +149,16 @@ function reportMeme(id) {
 
 function viewMeme(url) {
     window.open(url, "_blank");
+}
+
+function downloadMeme(url) {
+    var fail = function () {
+        toastToggle("Sorry!. I was unable to download that meme.", 1500);
+    }
+    var success = function (data) {
+        toastToggle("Meme Downloaded!", 1500);
+    }
+    cordova.plugins.DownloadManager.download(url, success, fail);
 }
 
 function request(path = "", method, data) {
