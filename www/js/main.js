@@ -49,7 +49,7 @@ function appendToMemeList(memes) {
     for (var meme of memes) {
         var likeBtnAttr;
         if (checkLiked(meme.id)) {
-            likeBtnAttr = `onclick="return false;" class="button button"`;
+            likeBtnAttr = `onclick="return false;" class="button"`;
         } else {
             likeBtnAttr = `onclick="likeMeme('${meme.id}', this)" class="button button--outline"`;
         }
@@ -60,7 +60,7 @@ function appendToMemeList(memes) {
             <div class="content" style="margin-top:10px;">
                 <button ${likeBtnAttr}>
                     <ons-icon icon="md-thumb-up"></ons-icon>
-                    ${meme.likes}
+                    <span>${meme.likes}</span>
                 </button>
 
                 <span style="float: right">
@@ -111,16 +111,20 @@ function getBestMemes() {
 }
 
 function likeMeme(id, event) {
-    request("/like/" + id, "PUT", {}).then(function (res) {
-        toastToggle("Meme Liked!", 500);
-        saveLike(id);
-    }).catch(function (err) {
-        console.log(err);
-    })
+    if (!checkLiked(id)) {
+        request("/like/" + id, "PUT", {}).then(function (res) {
+            toastToggle("Meme Liked!", 500);
+            saveLike(id, event, res);
+        }).catch(function (err) {
+            console.log(err);
+        });
+    }
 }
 
-function saveLike(id) {
+function saveLike(id, event, res) {
     if (!checkLiked(id)) {
+        $(event).attr("class", "button");
+        $(event).children("span").text(res.likes);
         likes.push(id);
         localStorage.setItem("likes", JSON.stringify(likes));
     }
