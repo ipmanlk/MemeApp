@@ -5,6 +5,7 @@ var loadMore = false;
 var settings = {
     "theme": "light"
 };
+var likes = [];
 
 ons.ready(init);
 
@@ -14,6 +15,7 @@ function init() {
     initOnsenSlideBar();
     initMemeListOnScroll();
     getMemes(null);
+    loadLikes();
 }
 
 function getMemes(id) {
@@ -45,19 +47,26 @@ function getMemes(id) {
 
 function appendToMemeList(memes) {
     for (var meme of memes) {
+        var likeBtnAttr;
+        if (checkLiked(meme.id)) {
+            likeBtnAttr = `onclick="return false;" class="button button"`;
+        } else {
+            likeBtnAttr = `onclick="likeMeme('${meme.id}', this)" class="button button--outline"`;
+        }
         $("#memeList").append(
             `
             <ons-card>
             <img src="${SERVER}/meme/${meme.img}" style="width: 100%">
             <div class="content" style="margin-top:10px;">
-                <button onclick="likeMeme('${meme.id}')" class="button button--outline">
+                <button ${likeBtnAttr}>
                     <ons-icon icon="md-thumb-up"></ons-icon>
-                    Like
+                    ${meme.likes}
                 </button>
-                <button onclick="viewMeme('${SERVER}/meme/${meme.img}')" class="button button--outline">
-                    <ons-icon icon="md-open-in-new"></ons-icon> View
-                </button>
+
                 <span style="float: right">
+                    <button onclick="viewMeme('${SERVER}/meme/${meme.img}')" class="button button--outline">
+                        <ons-icon icon="md-open-in-new"></ons-icon> 
+                    </button>
                     <button onclick="reportMeme('${meme.id}')" class="button button--outline">
                         <ons-icon icon="md-alert-circle-o"></ons-icon>
                     </button>
@@ -101,12 +110,30 @@ function getBestMemes() {
     })
 }
 
-function likeMeme(id) {
+function likeMeme(id, event) {
     request("/like/" + id, "PUT", {}).then(function (res) {
         toastToggle("Meme Liked!", 500);
+        saveLike(id);
     }).catch(function (err) {
         console.log(err);
     })
+}
+
+function saveLike(id) {
+    if (!checkLiked(id)) {
+        likes.push(id);
+        localStorage.setItem("likes", JSON.stringify(likes));
+    }
+}
+
+function loadLikes() {
+    if (localStorage.getItem("likes")) {
+        likes = JSON.parse(localStorage.getItem("likes"));
+    }
+}
+
+function checkLiked(id) {
+    return likes.indexOf(id.toString()) > -1
 }
 
 function reportMeme(id) {
