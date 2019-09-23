@@ -1,4 +1,4 @@
-var SERVER = "http://s1.navinda.xyz:3001";
+var SERVER = "https://get-that-meme-for-me.navinda.xyz";
 var currentPage = "memeList";
 var lastMemeId;
 var loadMore = false;
