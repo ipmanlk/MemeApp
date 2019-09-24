@@ -122,10 +122,13 @@ function getBestMemes() {
     currentPage = "bestMemeList";
     $("#memeList").empty();
     menu.close();
+    toastToggle("Getting Memes....", null);
     request("/best", "GET", {}).then(function (res) {
         appendToMemeList(res);
+        toastToggle(null, null);
     }).catch(function (err) {
         console.log(err);
+        toastToggle(null, null);
     })
 }
 
