@@ -56,7 +56,7 @@ function appendToMemeList(memes) {
         $("#memeList").append(
             `
             <ons-card>
-            <img src="${SERVER}/meme/${meme.img}" style="width: 100%">
+            <img id="${meme.hash}" src="./img/loading.gif" style="width: 100%">
             <div class="content" style="margin-top:10px;">
                 <button ${likeBtnAttr}>
                     <ons-icon icon="md-thumb-up"></ons-icon>
@@ -78,7 +78,23 @@ function appendToMemeList(memes) {
         </ons-card>
             `
         );
+
+        loadMeme(meme.hash, `${SERVER}/meme/${meme.img}`);
     }
+}
+
+function loadMeme(id, img) {
+    var tmpImg = new Image();
+    var memeImg = $("#" + id);
+    var imageLoaded = function () {
+        $(memeImg).attr("src", img);
+    };
+    var imageNotLoaded = function () {
+        $(memeImg).attr("src", "./img/404.png");
+    };
+    tmpImg.onload = imageLoaded;
+    tmpImg.onerror = imageNotLoaded;
+    tmpImg.src = img;
 }
 
 function switchTheme() {
