@@ -79,6 +79,8 @@ function appendToMemeList(memes) {
 
         loadMeme(meme.hash, `${meme.img}`);
     }
+
+    loadSettings();
 }
 
 function loadMeme(id, img) {
