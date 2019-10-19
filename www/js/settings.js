@@ -8,8 +8,10 @@ function loadSettings() {
 function applySettings() {
     if (settings.theme == "dark") {
         $("#theme").attr("href", "./lib/css/dark-onsen-css-components.min.css");
+        $(".memeSource").addClass("white");
     } else {
         $("#theme").attr("href", "./lib/css/onsen-css-components.min.css");
+        $(".memeSource").removeClass("white");
     }
 }
 

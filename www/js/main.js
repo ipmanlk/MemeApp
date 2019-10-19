@@ -200,7 +200,7 @@ function getSource(url) {
         const urlParts = url.split("/");
         const source = urlParts[urlParts.length - 3];
         return `
-            By <a href="${url}" style="color:#FFFFFF;text-decoration: none;"><b>${source}</b></a>
+            By <a class="memeSource" href="${url}"><b>${source}</b></a>
         `
     } catch {
         return "By Unknown"
