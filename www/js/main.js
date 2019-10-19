@@ -57,6 +57,7 @@ function appendToMemeList(memes) {
             `
             <ons-card>
             <img id="${meme.hash}" src="./img/loading.gif" style="width: 100%">
+            ${getSource(meme.source)}
             <div class="content" style="margin-top:10px;">
                 <button ${likeBtnAttr}>
                     <ons-icon icon="md-thumb-up"></ons-icon>
@@ -192,6 +193,18 @@ function request(path = "", method, data) {
             loadMore = true;
         });
     });
+}
+
+function getSource(url) {
+    try {
+        const urlParts = url.split("/");
+        const source = urlParts[urlParts.length - 3];
+        return `
+            By <a href="${url}" style="color:#FFFFFF;text-decoration: none;"><b>${source}</b></a>
+        `
+    } catch {
+        return "By Unknown"
+    }
 }
 
 function isNullOrEmpty(input) {
