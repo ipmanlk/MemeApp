@@ -24,9 +24,9 @@ function toastToggle(msg, time) {
     var toast = $("#outputToast");
     var toastMsg = $("#outputToastMsg");
 
-    if (isNullOrEmpty(msg) && isNullOrEmpty(time)) {
+    if (msg == null && time == null) {
         toast.hide();
-    } else if (!isNullOrEmpty(msg) && time !== null) {
+    } else if (msg !== null && time !== null) {
         ons.notification.toast(msg, { timeout: time, animation: "ascend" });
     } else {
         toastMsg.text(msg);
