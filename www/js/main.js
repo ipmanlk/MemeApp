@@ -1,4 +1,4 @@
-var SERVER = "https://get-that-meme-for-me.navinda.xyz";
+var SERVER = "https://08f935720c3d5ed1621a588fe31ac177.fossnoob.xyz";
 var currentPage = "memeList";
 var lastMemeId;
 var loadMore = false;
@@ -63,11 +63,8 @@ function appendToMemeList(memes) {
                     <span>${meme.likes}</span>
                 </button>
 
-                <span style="float: right">
-                    <button onclick="downloadMeme('${SERVER}/meme/${meme.hash}/download')" class="button button--outline">
-                        <ons-icon icon="md-cloud-download"></ons-icon> 
-                    </button>              
-                    <button onclick="viewMeme('${SERVER}/meme/${meme.img}')" class="button button--outline">
+                <span style="float: right">            
+                    <button onclick="viewMeme('${meme.img}')" class="button button--outline">
                         <ons-icon icon="md-open-in-new"></ons-icon> 
                     </button>
                     <button onclick="reportMeme('${meme.id}')" class="button button--outline">
@@ -79,7 +76,7 @@ function appendToMemeList(memes) {
             `
         );
 
-        loadMeme(meme.hash, `${SERVER}/meme/${meme.img}`);
+        loadMeme(meme.hash, `${meme.img}`);
     }
 }
 
