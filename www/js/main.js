@@ -200,7 +200,7 @@ function request(path = "", method, data) {
 function getSource(url) {
     try {
         const urlParts = url.split("/");
-        const source = urlParts[urlParts.length - 3];
+        const source = urlParts[3];
         return `
             By <a class="memeSource" href="${url}"><b>${source}</b></a>
         `
